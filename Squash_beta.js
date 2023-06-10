@@ -1,5 +1,6 @@
 /*2023/06/10 第2段階*/
 /*2023/06/10 第3段階*/
+/*2023/06/10 第4段階*/
 /*変数の宣言*/
 var ballX = 600;  //ボールのX座標
 var ballY = 300;  //ボールのY座標
@@ -7,6 +8,7 @@ var ballXp = 10;  //ボールのX軸方向の速さ
 var ballYp =  8;  //ボールのY軸方向の速さ
 var barX = 600; //バーのX座標
 var barY = 700; //バーのY座標
+var score = 0;
 
 /*起動時の処理*/
 function setup() {
@@ -22,6 +24,7 @@ function mainloop() {
     fRect(250, 50, 700, 750, "black");
     setAlp(100);
     sRect(250, 50, 700, 760, "silver");
+    fText("SCORE "+score, 600, 25, 36, "white"); //スコア表示
     //== ボールの動作 ==//
     ballX = ballX + ballXp;
     ballY = ballY + ballYp;
@@ -32,5 +35,10 @@ function mainloop() {
     barX = tapX; //マウスポインターのX座標をbarXに代入
     if(barX < 300) barX = 300;
     if(barX > 900) barX = 900;
+    //== バーでボールを打ち返す ==//
+    if(barX-60 < ballX && ballX < barX+60 && barY-30 < ballY && ballY < barY-10){
+        ballYp = -8-rnd(8);
+        score = score + 100;
+    }
     sRect(barX-50, barY-10, 100, 20, "violet"); //バー
 }
